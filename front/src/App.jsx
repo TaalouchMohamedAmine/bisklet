@@ -1,6 +1,5 @@
 import "./App.css";
 
-import { useEffect, useState } from "react";
 import heroImage from "./assets/hero.png";
 import txSellImage from "./assets/tx-sell.svg";
 import txBuyImage from "./assets/tx-buy.svg";
@@ -12,12 +11,6 @@ import catAdsImage from "./assets/cat-ads.svg";
 import featSecureImage from "./assets/feat-secure.svg";
 import featFastImage from "./assets/feat-fast.svg";
 import featLocalImage from "./assets/feat-local.svg";
-import Dashboard from "./auth/Dashboard";
-import ForgotPassword from "./auth/ForgotPassword";
-import Login from "./auth/Login";
-import ResetPassword from "./auth/ResetPassword";
-import SignUp from "./auth/SignUp";
-import { navigateTo } from "./navigation";
 
 const transactions = [
   {
@@ -90,7 +83,7 @@ const features = [
   },
 ];
 
-function LandingPage() {
+function App() {
   return (
     <main className="site-shell">
       <div className="ambient ambient-one" aria-hidden="true" />
@@ -124,26 +117,11 @@ function LandingPage() {
           <a href="#hero">ACCUEIL</a>
           <a href="#categories">LOCATION</a>
           <a href="#features">BOUTIQUE</a>
-          <a
-            href="/login"
-            onClick={(event) => {
-              event.preventDefault();
-              navigateTo("/login");
-            }}
-          >
-            MY ACCOUNT
-          </a>
+          <a href="#contact">MY ACCOUNT</a>
         </nav>
 
-        <a
-          className="booking-btn"
-          href="/sign-up"
-          onClick={(event) => {
-            event.preventDefault();
-            navigateTo("/sign-up");
-          }}
-        >
-          Sign up
+        <a className="booking-btn" href="#transactions">
+          Booking
         </a>
       </header>
 
@@ -257,25 +235,11 @@ function LandingPage() {
           <h2>Prêt à commencer ?</h2>
           <p>Rejoignez la communauté Bisklet aujourd'hui</p>
           <div className="cta-buttons">
-            <a
-              href="/sign-up"
-              className="primary-link btn-premium"
-              onClick={(event) => {
-                event.preventDefault();
-                navigateTo("/sign-up");
-              }}
-            >
+            <a href="#" className="primary-link btn-premium">
               Créer un compte
             </a>
-            <a
-              href="/login"
-              className="secondary-link btn-premium"
-              onClick={(event) => {
-                event.preventDefault();
-                navigateTo("/login");
-              }}
-            >
-              Se connecter
+            <a href="#" className="secondary-link btn-premium">
+              Nous contacter
             </a>
           </div>
         </div>
@@ -308,41 +272,6 @@ function LandingPage() {
       </footer>
     </main>
   );
-}
-
-function App() {
-  const [path, setPath] = useState(window.location.pathname);
-
-  useEffect(() => {
-    function syncPath() {
-      setPath(window.location.pathname);
-    }
-
-    window.addEventListener("popstate", syncPath);
-    return () => window.removeEventListener("popstate", syncPath);
-  }, []);
-
-  if (path === "/login") {
-    return <Login />;
-  }
-
-  if (path === "/sign-up" || path === "/register") {
-    return <SignUp />;
-  }
-
-  if (path === "/forgot-password") {
-    return <ForgotPassword />;
-  }
-
-  if (path.startsWith("/reset-password/")) {
-    return <ResetPassword />;
-  }
-
-  if (path === "/dashboard") {
-    return <Dashboard />;
-  }
-
-  return <LandingPage />;
 }
 
 export default App;
