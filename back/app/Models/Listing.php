@@ -14,11 +14,18 @@ class Listing extends Model
     protected $fillable = [
         'user_id',
         'category_id',
+        'bike_brand_id',
+        'bike_model_id',
         'title',
         'description',
         'transaction_type',
         'condition',
+        'year',
+        'frame_size',
+        'wheel_size',
+        'color',
         'price',
+        'daily_rate',
         'city',
         'address',
         'status',
@@ -29,6 +36,7 @@ class Listing extends Model
     {
         return [
             'price' => 'decimal:2',
+            'daily_rate' => 'decimal:2',
             'published_at' => 'datetime',
         ];
     }
@@ -41,6 +49,16 @@ class Listing extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function bikeBrand(): BelongsTo
+    {
+        return $this->belongsTo(BikeBrand::class);
+    }
+
+    public function bikeModel(): BelongsTo
+    {
+        return $this->belongsTo(BikeModel::class);
     }
 
     public function images(): HasMany
@@ -56,5 +74,30 @@ class Listing extends Model
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function offers(): HasMany
+    {
+        return $this->hasMany(ListingOffer::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function rentalBookings(): HasMany
+    {
+        return $this->hasMany(RentalBooking::class);
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function reports(): HasMany
+    {
+        return $this->hasMany(Report::class);
     }
 }
